@@ -32,8 +32,8 @@ jobs:
           echo "🔧 Preparing app for deployment..."
           sleep 1
 
-          echo "📂 Running app.py..."
-          python app.py || (echo '❌ Failed to run app.py!' && exit 1)
+          echo "📂 Running app/app.py..."
+          python app/app.py || (echo '❌ Failed to run app/app.py!' && exit 1)
 
           echo ""
           echo "✅ Deployment successful! 🎉"
