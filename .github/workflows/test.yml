@@ -1,0 +1,33 @@
+name: 🚀 Run Tests (CI)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  run-tests:
+    name: 🔨 Run Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📦 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python 3.x
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: 📥 Install Dependencies
+        run: |
+          echo "📦 Installing dependencies..."
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          echo "✅ Dependencies installed!"
+
+      - name: ✅ Run Tests with pytest
+        run: |
+          echo "🧪 Running tests..."
+          pytest tests/ --color=yes
+          echo "🎉 All tests PASSED! ✅"

@@ -1,21 +1,44 @@
-name: Simple Python CD example
+name: 🚀 Continuous Deployment (CD)
 
 on:
-    push:
-        branches: [ main ]
+  workflow_run:
+    workflows: ["🚀 Run Tests (CI)"]
+    types:
+      - completed
 
 jobs:
-    deploy:
-        runs-on: ubuntu-latest
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    name: 🚢 Deploy the App
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
+    steps:
+      - name: 📦 Checkout Code
+        uses: actions/checkout@v4
 
-            - name: Set up Python
-              uses: actions/setup-python@v5
-              with:
-                python-version: '3.x'
+      - name: 🐍 Set up Python 3.x
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
 
-            - name: Run Python Script
-              run: python app.py
+      - name: 🚀 Simulate Deploy
+        run: |
+          echo ""
+          echo "🚀==============================================🚀"
+          echo "        Starting Deployment Process...          "
+          echo "🚀==============================================🚀"
+          echo ""
+
+          echo "🔧 Preparing app for deployment..."
+          sleep 1
+
+          echo "📂 Running app.py..."
+          python app.py || (echo '❌ Failed to run app.py!' && exit 1)
+
+          echo ""
+          echo "✅ Deployment successful! 🎉"
+          echo "💡 App is now LIVE! 🌐"
+          echo ""
+          echo "🎯==============================================🎯"
+          echo "               Deployment Complete!             "
+          echo "🎯==============================================🎯"
